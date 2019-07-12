@@ -54,10 +54,6 @@ def main(args, load_exclude_set, restoreCallback):
 		model.train_process()
 	elif args.mode == "test":
 		test_res = model.test_process()
-
-		for key, val in test_res.items():
-			if isinstance(val, bytes):
-				test_res[key] = str(val)
 		json.dump(test_res, open("./result.json", "w"))
 	else:
 		raise ValueError("Unknown mode")

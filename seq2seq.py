@@ -204,7 +204,7 @@ class Seq2seq(BaseModel):
 				f.write("gen:\t%s\n" % " ".join(res['gen'][i]))
 			f.flush()
 		logging.info("result output to %s.", filename)
-		return {key: val for key, val in res.items() if type(val) in [bytes, int, float]}
+		return {key: val for key, val in res.items() if isinstance(val, (str, int, float))}
 
 	def test_process(self):
 		logging.info("Test Start.")

@@ -8,6 +8,7 @@ cache: pip
 install:
   - pip install --upgrade pip
   - pip install -r requirements.txt
+  - pip install pytest-dependency pytest-mock requests-mock pytest>=3.6.0 pytest-cov==2.4.0
   - git clone https://github.com/thu-coai/cotk.git && cd cotk && pip install -e . --progress-bar off && cd ..
 
 script:

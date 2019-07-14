@@ -12,7 +12,7 @@ install:
   - git clone https://github.com/thu-coai/cotk.git && cd cotk && pip install -e . --progress-bar off && cd ..
 
 script:
-  - pytest test_seq2seq_pytorch.py --cov=seq2seq-pytorch --cov-report term-missing
+  - pytest test_seq2seq_pytorch.py --cov=. --cov-report term-missing
 
 deploy:
   - provider: script

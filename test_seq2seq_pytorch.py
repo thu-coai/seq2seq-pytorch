@@ -6,8 +6,7 @@ import os
 import json
 import shutil
 cwd = os.path.abspath(os.path.dirname(__file__))
-path = os.path.split(cwd)[0]
-path = os.path.split(path)[0]
+path = os.path.join(cwd, 'cotk')
 
 def setup_function(function):
 	import sys

@@ -7,9 +7,7 @@ cache: pip
 
 install:
   - pip install --upgrade pip
-  - git clone https://github.com/thu-coai/cotk.git && cd cotk && pip install -e .[develop] --progress-bar off
-  - pip install sphinx==1.8.5
-  - pip install m2r
+  - git clone https://github.com/thu-coai/cotk.git && cd cotk && pip install -e .[develop] --progress-bar off && cd ..
 
 script:
   - pytest test_seq2seq_pytorch.py

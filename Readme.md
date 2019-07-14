@@ -1,6 +1,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/thu-coai/seq2seq-pytorch/badge.svg?branch=master)](https://coveralls.io/github/thu-coai/seq2seq-pytorch?branch=master)
 [![Build Status](https://travis-ci.com/thu-coai/seq2seq-pytorch.svg?branch=master)](https://travis-ci.com/thu-coai/seq2seq-pytorch)
 
+This is a model from cotk, click here to our [main repo](https://github.com/thu-coai/cotk).
+
 # Seq2Seq (PyTorch)
 
 Seq2seq with attention mechanism is a basic model for single turn dialog. In addition, batch normalization and dropout has been applied. You can also choose beamsearch, greedy, random sample, random sample from top k when decoding.

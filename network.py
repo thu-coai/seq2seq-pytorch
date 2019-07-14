@@ -101,7 +101,7 @@ class GenNetwork(nn.Module):
 
 		self.GRULayer = SingleAttnGRU(args.embedding_size, args.dh_size, args.eh_size * 2, initpara=False)
 		self.wLinearLayer = nn.Linear(args.dh_size + args.eh_size * 2, param.volatile.dm.vocab_size)
-		self.lossCE = nn.CrossEntropyLoss(ignore_index=param.volatile.dm.unk_id)
+		self.lossCE = nn.CrossEntropyLoss()
 		self.start_generate_id = param.volatile.dm.go_id
 
 		self.drop = nn.Dropout(args.droprate)

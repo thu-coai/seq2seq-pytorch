@@ -9,7 +9,7 @@ install:
   - pip install --upgrade pip
   - pip install -r requirements.txt
   - pip install pytest-dependency pytest-mock requests-mock pytest>=3.6.0 pytest-cov==2.4.0 python-coveralls
-  - git clone https://github.com/thu-coai/cotk.git && cd cotk && pip install -e . --progress-bar off && cd ..
+  - cd .. && git clone https://github.com/thu-coai/cotk.git && pip install -e . --progress-bar off && cd seq2seq-pytorch
 
 script:
   - pytest test_seq2seq_pytorch.py --cov=. --cov-report term-missing

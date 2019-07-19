@@ -65,6 +65,8 @@ def run(*argv):
 		help='Enter debug mode (using ptvsd).')
 	parser.add_argument('--cache', action='store_true',
 		help='Use cache for speeding up load data and wordvec. (It may cause problems when you switch dataset.)')
+	parser.add_argument('--seed', type=float, default=0,
+		help='Specify random seed. Default: 0')
 	cargs = parser.parse_args(argv)
 
 
@@ -111,8 +113,14 @@ def run(*argv):
 	args.checkpoint_steps = 20
 	args.checkpoint_max_to_keep = 5
 
+	args.seed = cargs.seed
+
 	import random
-	random.seed(0)
+	random.seed(cargs.seed)
+	import torch
+	torch.manual_seed(cargs.seed)
+	import numpy as np
+	np.random.seed(cargs.seed)
 
 	from main import main
 

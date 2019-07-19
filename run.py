@@ -65,7 +65,7 @@ def run(*argv):
 		help='Enter debug mode (using ptvsd).')
 	parser.add_argument('--cache', action='store_true',
 		help='Use cache for speeding up load data and wordvec. (It may cause problems when you switch dataset.)')
-	parser.add_argument('--seed', type=float, default=0,
+	parser.add_argument('--seed', type=int, default=0,
 		help='Specify random seed. Default: 0')
 	cargs = parser.parse_args(argv)
 

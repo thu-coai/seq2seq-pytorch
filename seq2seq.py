@@ -195,7 +195,7 @@ class Seq2seq(BaseModel):
 		with open(filename, 'w') as f:
 			logging.info("%s Test Result:", key)
 			for key, value in res.items():
-				if isinstance(value, float) or isinstance(value, bytes):
+				if isinstance(value, float) or isinstance(value, str):
 					logging.info("\t{}:\t{}".format(key, value))
 					f.write("{}:\t{}\n".format(key, value))
 			for i in range(len(res['post'])):

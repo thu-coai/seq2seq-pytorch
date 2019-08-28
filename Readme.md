@@ -24,8 +24,8 @@ Bahdanau, D., Cho, K., & Bengio, Y. (2015). Neural machine translation by jointl
 
 * Using ``cotk download thu-coai/seq2seq-pytorch/master`` to download codes.
 * Execute ``python run.py`` to train the model.
-  * The default dataset is ``OpenSubtitles``. You can use ``--dataset`` to specify other ``dataloader`` class and ``--datapath`` to specify other data path (can be a local path, a url or a resources id). For example: ``--dataset OpenSubtitles --datapath resources://OpenSubtitles``
-  * It doesn't use pretrained word vector by default setting. You can use ``--wvclass`` to specify ``wordvector`` class and ``--wvpath`` to specify pretrained word embeddings. For example: ``--wvclass gloves``. For example: ``--dataset Glove --datapath resources://Glove300``
+  * The default dataset is ``OpenSubtitles``. You can use ``--dataset`` to specify other ``dataloader`` class and ``--dataid`` to specify other data path (can be a local path, a url or a resources id). For example: ``--dataset OpenSubtitles --dataid resources://OpenSubtitles``
+  * It doesn't use pretrained word vector by default setting. You can use ``--wvclass`` to specify ``wordvector`` class and ``--wvpath`` to specify pretrained word embeddings. For example: ``--wvclass gloves``. For example: ``--dataset Glove --dataid resources://Glove300``
   * If you don't have GPUs, you can add `--cpu` for switching to CPU, but it may cost very long time for either training or test.
 * You can view training process by tensorboard, the log is at `./tensorboard`.
   * For example, ``tensorboard --logdir=./tensorboard``. (You have to install tensorboard first.)
@@ -161,27 +161,26 @@ gen:    i don' t know .
 
 Based on `OpenSubtitles_small` (a smaller version of `OpenSubtitles`), we did the following experiments.
 
-| encoder | decoder | batchnorm | learning rate | droprate | decode mode | dev perplexity | test perplexity |
-| :-----: | :-----: | :-------: | :-----------: | :------: | :---------: | :------------: | :-------------: |
-|   175   |   175   |    no     |    0.0001     |   0.2    |   samplek   |     88.971     |     94.698      |
-| **128** | **128** |    no     |    0.0001     |  **0**   |   samplek   |     95.207     |     100.676     |
-| **128** | **128** |    no     |    0.0001     |   0.2    |   samplek   |     93.559     |     99.287      |
-| **128** | **128** |  **yes**  |    0.0001     |  **0**   |   samplek   |    105.649     |     112.818     |
-| **128** | **128** |  **yes**  |    0.0001     |   0.2    |   samplek   |     95.894     |     102.243     |
-| **150** | **150** |    no     |    0.0001     |   0.2    |   samplek   |     90.153     |     95.072      |
-| **256** | **256** |    no     |    0.0001     |   0.2    |   samplek   |     89.374     |     94.272      |
-|   175   |   175   |    no     |    0.0001     |   0.2    |  **beam**   |     89.253     |     93.674      |
-|   175   |   175   |  **yes**  |    0.0001     |   0.2    |   samplek   |     97.704     |     102.851     |
-|   175   |   175   |    no     |    0.0001     | **0.1**  |   samplek   |     90.149     |     95.310      |
-|   175   |   175   |    no     |    0.0001     | **0.3**  |   samplek   |     89.750     |     95.042      |
-|   175   |   175   |    no     |  **0.0005**   |   0.2    |   samplek   |   **88.688**   |   **93.421**    |
+| encoder | decoder | batchnorm | learning rate | droprate | dev perplexity | test perplexity |
+| :-----: | :-----: | :-------: | :-----------: | :------: | :------------: | :-------------: |
+|   175   |   175   |    no     |    0.0001     |   0.2    |     88.971     |     94.698      |
+| **128** | **128** |    no     |    0.0001     |  **0**   |     95.207     |     100.676     |
+| **128** | **128** |    no     |    0.0001     |   0.2    |     93.559     |     99.287      |
+| **128** | **128** |  **yes**  |    0.0001     |  **0**   |    105.649     |     112.818     |
+| **128** | **128** |  **yes**  |    0.0001     |   0.2    |     95.894     |     102.243     |
+| **150** | **150** |    no     |    0.0001     |   0.2    |     90.153     |     95.072      |
+| **256** | **256** |    no     |    0.0001     |   0.2    |     89.374     |     94.272      |
+|   175   |   175   |  **yes**  |    0.0001     |   0.2    |     97.704     |     102.851     |
+|   175   |   175   |    no     |    0.0001     | **0.1**  |     90.149     |     95.310      |
+|   175   |   175   |    no     |    0.0001     | **0.3**  |     89.750     |     95.042      |
+|   175   |   175   |    no     |  **0.0005**   |   0.2    |   **88.688**   |   **93.421**    |
 
 The following experiments are based on the parameters of the first experiment.
 
 To reproduce the experiment, run the following command to train the model:
 
 ```bash
-python run.py --dataset=OpenSubtitles --datapath resources://OpenSubtitles_small --eh_size 175 --dh_size 175 --decode_mode samplek --droprate 0.2 --epoch 35 --lr 0.0001
+python run.py --dataset=OpenSubtitles --dataid resources://OpenSubtitles_small --eh_size 175 --dh_size 175 --droprate 0.2 --epoch 35 --lr 0.0001
 ```
 
 Based on the best parameters,  we did another five experiments in order to analyze the model's performance totally.
@@ -198,7 +197,7 @@ Based on the best parameters,  we did another five experiments in order to analy
 Run the following command to test the trained model:
 
 ```bash
-python run.py --dataset=OpenSubtitles --datapath resources://OpenSubtitles_small --eh_size 175 --dh_size 175 --decode_mode samplek --droprate 0.2 --epoch 35 --mode test --restore [model name] --seed [seed value]
+python run.py --dataset=OpenSubtitles --dataid resources://OpenSubtitles_small --eh_size 175 --dh_size 175 --decode_mode samplek --droprate 0.2 --epoch 35 --mode test --restore [model name] --seed [seed value]
 ```
 
 ### Fullset experiment
@@ -223,13 +222,13 @@ Based on the result of subset experiment, we did the following experiment on `Op
 To reproduce the experiment, run the following command to train the model:
 
 ```bash
-python run.py --dataset=OpenSubtitles --datapath resources://OpenSubtitles --eh_size 256 --dh_size 256 --decode_mode [decode mode] --droprate 0.2 --lr 0.0003 --epoch 200
+python run.py --dataset=OpenSubtitles --dataid resources://OpenSubtitles --eh_size 256 --dh_size 256 --droprate 0.2 --lr 0.0003 --epoch 200
 ```
 
 Run the following command to test the trained model:
 
 ```bash
-python run.py --dataset=OpenSubtitles --datapath resources://OpenSubtitles --eh_size 256 --dh_size 256 --decode_mode [decode mode] --droprate 0.2 --lr 0.0003 --epoch 200 --mode test --restore best
+python run.py --dataset=OpenSubtitles --dataid resources://OpenSubtitles --eh_size 256 --dh_size 256 --decode_mode [decode mode] --droprate 0.2 --lr 0.0003 --epoch 200 --mode test --restore best
 ```
 
 ## Performance

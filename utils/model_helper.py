@@ -49,6 +49,8 @@ class BaseModel():
 		if args.restore is not None:
 			if args.restore.startswith("http"):
 				restore = cotk.downloader.load_file_from_url(args.restore)
+			else:
+				restore = args.restore
 			checkpoint = self.checkpoint_manager.restore(restore)
 			diff = args - checkpoint["args"]
 			self.last_args = checkpoint['args']

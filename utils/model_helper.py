@@ -7,7 +7,7 @@ import json
 import torch
 import numpy as np
 
-import cotk
+import cotk.downloader
 from .cuda_helper import cuda, Tensor
 from .anneal_helper import AnnealHelper, AnnealParameter
 from .storage import Storage

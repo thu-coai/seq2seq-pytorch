@@ -248,7 +248,7 @@ class DecoderRNN(nn.Module):
 			now_length = torch.gather(now_length, dim=1, index=regroup) + 1 - flag.float()
 
 			w_x = w.clone()
-			w_x[w_x >= dm.vocab_size] = dm.unk_id
+			w_x[w_x >= dm.frequent_vocab_size] = dm.unk_id
 			#w_x = cuda(w_x)
 
 			next_emb = inp.embLayer(w_x)

@@ -7,7 +7,7 @@ import json
 import torch
 import numpy as np
 
-import cotk.downloader
+import cotk.file_utils
 from .cuda_helper import cuda, Tensor
 from .anneal_helper import AnnealHelper, AnnealParameter
 from .storage import Storage
@@ -48,7 +48,7 @@ class BaseModel():
 		self.last_args = None
 		if args.restore is not None:
 			if args.restore.startswith("http"):
-				restore = cotk.downloader.load_file_from_url(args.restore)
+				restore = cotk.file_utils.load_file_from_url(args.restore)
 			else:
 				restore = args.restore
 			checkpoint = self.checkpoint_manager.restore(restore)

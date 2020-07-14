@@ -47,7 +47,7 @@ class EmbeddingLayer(nn.Module):
 		self.param = param
 		volatile = param.volatile
 
-		self.embLayer = nn.Embedding(volatile.dm.vocab_size, args.embedding_size)
+		self.embLayer = nn.Embedding(volatile.dm.frequent_vocab_size, args.embedding_size)
 		self.embLayer.weight = nn.Parameter(torch.Tensor(volatile.wordvec))
 
 	def forward(self, incoming):
@@ -100,7 +100,7 @@ class GenNetwork(nn.Module):
 		self.param = param
 
 		self.GRULayer = SingleAttnGRU(args.embedding_size, args.dh_size, args.eh_size * 2, initpara=False)
-		self.wLinearLayer = nn.Linear(args.dh_size + args.eh_size * 2, param.volatile.dm.vocab_size)
+		self.wLinearLayer = nn.Linear(args.dh_size + args.eh_size * 2, param.volatile.dm.frequent_vocab_size)
 		self.lossCE = nn.CrossEntropyLoss()
 		self.start_generate_id = param.volatile.dm.go_id
 
